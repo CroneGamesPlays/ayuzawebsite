@@ -94,12 +94,51 @@
 
           <div class="navbar-item">
             <div class="buttons">
-              <a href="https://discord.com/api/oauth2/authorize?client_id=997870494005088297&permissions=1946544248&scope=bot&response_type=code&redirect_uri=https://bit.ly/login-ayuza" class="button is-blurple">
+              <a id="login" href="https://discord.com/api/oauth2/authorize?client_id=997870494005088297&permissions=1946544248&scope=bot&response_type=code&redirect_uri=https://bit.ly/login-ayuza" class="button is-blurple">
                 <strong
-                  ><i class="fa-solid fa-right-to-bracket mr-2"></i>
-                  Login</strong
+                ><i class="fa-solid fa-right-to-bracket mr-2" id="info">
+                  Login</i></strong
                 >
               </a>
+              <script>
+
+	window.onload = () => {
+
+		const fragment = new URLSearchParams(window.location.hash.slice(1));
+
+		const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+
+		if (!accessToken) {
+
+			return (document.getElementById('login').style.display = 'block');
+
+		}
+
+		fetch('https://discord.com/api/users/@me', {
+
+			headers: {
+
+				authorization: `${tokenType} ${accessToken}`,
+
+			},
+
+		})
+
+			.then(result => result.json())
+
+			.then(response => {
+
+				const { username, discriminator } = response;
+
+				document.getElementById('info').innerText += ` ${username}#${discriminator}`;
+
+			})
+
+			.catch(console.error);
+
+	};
+
+  </script>
             </div>
           </div>
         </div>
