@@ -1,4 +1,4 @@
-//Olá developer! 👋
+Olá developer! 👋
 
 Este site é para o bot Ayuza, uma bot verificada com varias funcões para o seu servidor Discord!
 
